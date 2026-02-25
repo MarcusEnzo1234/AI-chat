@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ByteBuddy AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header class="topbar">
+    <div class="brand" role="button" tabindex="0" id="brandHome">
+      <div class="logo">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+      <div class="brandText">
+        <div class="name">ByteBuddy</div>
+        <div class="tag">Your cozy AI chat</div>
+      </div>
+    </div>
+
+    <div class="topActions" id="topActions">
+      <button class="btn ghost" id="btnGoLogin">Log in</button>
+      <button class="btn" id="btnGoSignup">Sign up</button>
+    </div>
+
+    <div class="topUser" id="topUser" hidden>
+      <div class="pill" id="userPill">👤</div>
+      <button class="btn ghost" id="btnLogout">Log out</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <!-- LANDING -->
+    <section class="panel" id="viewLanding">
+      <div class="hero">
+        <h1>Chat with a friendly AI.</h1>
+        <p class="sub">
+          Ask anything. Get answers. Save your conversations.
+          <span class="muted">(Offline demo — no real API.)</span>
+        </p>
+
+        <div class="heroCards">
+          <div class="card">
+            <div class="cardIcon">✨</div>
+            <div class="cardTitle">Fast answers</div>
+            <div class="cardText">Ask a question and get an instant response.</div>
+          </div>
+          <div class="card">
+            <div class="cardIcon">🔒</div>
+            <div class="cardTitle">Accounts</div>
+            <div class="cardText">Sign up, log in, and reset password.</div>
+          </div>
+          <div class="card">
+            <div class="cardIcon">💾</div>
+            <div class="cardTitle">History</div>
+            <div class="cardText">Chats are saved on your device automatically.</div>
+          </div>
+        </div>
+
+        <div class="ctaRow">
+          <button class="btn big" id="btnStartNow">Start chatting</button>
+          <button class="btn ghost big" id="btnDemoLogin">Use demo account</button>
+        </div>
+
+        <div class="note">
+          Demo login: <b>demo@bytebuddy.ai</b> / <b>demo123</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH -->
+    <section class="panel" id="viewAuth" hidden>
+      <div class="authWrap">
+        <div class="authLeft">
+          <h2 id="authTitle">Welcome back</h2>
+          <p class="sub" id="authSubtitle">Log in to continue your chats.</p>
+
+          <div class="tabs">
+            <button class="tab" id="tabLogin" aria-selected="true">Log in</button>
+            <button class="tab" id="tabSignup" aria-selected="false">Sign up</button>
+            <button class="tab" id="tabForgot" aria-selected="false">Forgot</button>
+          </div>
+
+          <!-- LOGIN -->
+          <form class="form" id="formLogin">
+            <label>Email</label>
+            <input type="email" id="loginEmail" autocomplete="email" placeholder="you@email.com" required />
+
+            <label>Password</label>
+            <div class="pwRow">
+              <input type="password" id="loginPassword" autocomplete="current-password" placeholder="••••••••" required />
+              <button type="button" class="iconBtn" id="toggleLoginPw" title="Show/hide password">👁️</button>
+            </div>
+
+            <button class="btn full" type="submit">Log in</button>
+            <button class="btn ghost full" type="button" id="goForgot">Forgot password?</button>
+
+            <div class="msg" id="loginMsg" aria-live="polite"></div>
+          </form>
+
+          <!-- SIGNUP -->
+          <form class="form" id="formSignup" hidden>
+            <label>Display name</label>
+            <input type="text" id="signupName" autocomplete="name" placeholder="Marcus" required />
+
+            <label>Email</label>
+            <input type="email" id="signupEmail" autocomplete="email" placeholder="you@email.com" required />
+
+            <label>Password</label>
+            <div class="pwRow">
+              <input type="password" id="signupPassword" autocomplete="new-password" placeholder="Create a password" required />
+              <button type="button" class="iconBtn" id="toggleSignupPw" title="Show/hide password">👁️</button>
+            </div>
+
+            <label>Confirm password</label>
+            <input type="password" id="signupConfirm" autocomplete="new-password" placeholder="Confirm password" required />
+
+            <button class="btn full" type="submit">Create account</button>
+            <div class="msg" id="signupMsg" aria-live="polite"></div>
+          </form>
+
+          <!-- FORGOT -->
+          <form class="form" id="formForgot" hidden>
+            <label>Email</label>
+            <input type="email" id="forgotEmail" autocomplete="email" placeholder="you@email.com" required />
+
+            <label>New password</label>
+            <div class="pwRow">
+              <input type="password" id="forgotNewPw" autocomplete="new-password" placeholder="New password" required />
+              <button type="button" class="iconBtn" id="toggleForgotPw" title="Show/hide password">👁️</button>
+            </div>
+
+            <button class="btn full" type="submit">Reset password</button>
+            <div class="msg" id="forgotMsg" aria-live="polite"></div>
+
+            <div class="tiny muted">
+              This is a demo reset flow (no emails). It updates your saved account locally.
+            </div>
+          </form>
+
+          <button class="btn ghost full backBtn" id="backToLanding">← Back</button>
+        </div>
+
+        <div class="authRight">
+          <div class="shineCard">
+            <div class="shineTitle">ByteBuddy AI</div>
+            <div class="shineText">
+              A simple front-end “ChatGPT-like” website with auth pages + chat UI.
+              Plug in a real API later if you want.
+            </div>
+            <div class="bullets">
+              <div class="bullet">• Clean layout + responsive</div>
+              <div class="bullet">• Local user accounts</div>
+              <div class="bullet">• Chat history saved</div>
+              <div class="bullet">• Typing animation</div>
+            </div>
+            <div class="pillRow">
+              <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">JS</span>
+              <span class="pill">LocalStorage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+    <section class="panel chatPanel" id="viewChat" hidden>
+      <aside class="sidebar">
+        <div class="sidebarTop">
+          <div class="sidebarTitle">Chats</div>
+          <button class="btn ghost" id="btnNewChat">+ New</button>
+        </div>
+
+        <div class="chatList" id="chatList"></div>
+
+        <div class="sidebarBottom">
+          <div class="tiny muted" id="storageHint">Saved on this device.</div>
+          <button class="btn ghost full" id="btnClearAll">Clear all chats</button>
+        </div>
+      </aside>
+
+      <section class="chatMain">
+        <div class="chatHeader">
+          <div>
+            <div class="chatTitle" id="chatTitle">New chat</div>
+            <div class="tiny muted" id="chatSubtitle">Ask a question and ByteBuddy will answer.</div>
+          </div>
+          <div class="chatHeaderActions">
+            <button class="btn ghost" id="btnExport">Export</button>
+          </div>
+        </div>
+
+        <div class="chatStream" id="chatStream" aria-live="polite"></div>
+
+        <div class="composer">
+          <div class="composerRow">
+            <textarea id="inputBox" rows="1" placeholder="Ask ByteBuddy anything..."></textarea>
+            <button class="btn" id="btnSend">Send</button>
+          </div>
+          <div class="composerMeta">
+            <div class="tiny muted">Tip: Press <b>Enter</b> to send • <b>Shift+Enter</b> for newline</div>
+            <div class="tiny muted" id="typingState"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="tiny muted">
+      © <span id="year"></span> ByteBuddy • Front-end demo • No server required
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
